@@ -139,14 +139,43 @@ namespace BandTracker
 
         public List<Venue> GetVenues()
         {
-            Venue venue = new Venue ("Hey");
-            venue.Save();
+            List<Venue> AllVenues = new List<Venue>{};
 
-            Band newBand = new Band ("What");
-            newBand.Save();
+            SqlConnection conn = DB.Connection();
+            conn.Open();
 
-            List<Venue> blah = new List<Venue>{venue};
-            return blah;
+            SqlCommand cmd = new SqlCommand("SELECT venues.* FROM bands JOIN bands_venues ON (bands.id = bands_venues.band_id) JOIN venues ON (venues.id = bands_venues.venue_id) WHERE bands.id = @BandId;", conn);
+
+            SqlParameter bandIdParameter = new SqlParameter();
+            bandIdParameter.ParameterName = "@BandId";
+            bandIdParameter.Value = this._id;
+            cmd.Parameters.Add(bandIdParameter);
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            int foundVenueId = 0;
+            string foundVenueName = null;
+
+            while(rdr.Read())
+            {
+                foundVenueId = rdr.GetInt32(0);
+                foundVenueName = rdr.GetString(1);
+
+                Venue foundVenue = new Venue(foundVenueName, foundVenueId);
+                AllVenues.Add(foundVenue);
+            }
+
+            if(rdr != null)
+            {
+                rdr.Close();
+            }
+
+            if(conn != null)
+            {
+                conn.Close();
+            }
+
+            return AllVenues;
         }
 
         public static void DeleteAll()
