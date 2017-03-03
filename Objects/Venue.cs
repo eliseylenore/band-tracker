@@ -72,34 +72,32 @@ namespace BandTracker
 
         public static List<Venue> GetAll()
         {
-            // List<Venue> AllVenues = new List<Venue> {};
-            //
-            // SqlConnection conn = DB.Connection();
-            // conn.Open();
-            //
-            // SqlCommand cmd = new SqlCommand("SELECT * FROM venues;", conn);
-            // SqlDataReader rdr = cmd.ExecuteReader();
-            //
-            // while(rdr.Read())
-            // {
-            //     int venueId = rdr.GetInt32(0);
-            //     string venueName = rdr.GetString(1);
-            //
-            //     Venue newVenue = new Venue(venueName, venueId);
-            //     AllVenues.Add(newVenue);
-            // }
-            //
-            // if(rdr != null)
-            // {
-            //     rdr.Close();
-            // }
-            // if(conn != null)
-            // {
-            //     conn.Close();
-            // }
+            List<Venue> AllVenues = new List<Venue> {};
 
-            Venue newVenue = new Venue("Hey");
-            List<Venue> AllVenues = new List<Venue>{newVenue};
+            SqlConnection conn = DB.Connection();
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM venues;", conn);
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while(rdr.Read())
+            {
+                int venueId = rdr.GetInt32(0);
+                string venueName = rdr.GetString(1);
+
+                Venue newVenue = new Venue(venueName, venueId);
+                AllVenues.Add(newVenue);
+            }
+
+            if(rdr != null)
+            {
+                rdr.Close();
+            }
+            if(conn != null)
+            {
+                conn.Close();
+            }
+
             return AllVenues;
         }
 
