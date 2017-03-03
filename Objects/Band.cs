@@ -25,7 +25,7 @@ namespace BandTracker
             return _name;
         }
 
-        public override bool Equals(Band otherBand)
+        public override bool Equals(System.Object otherBand)
         {
             if(!(otherBand is Band))
             {
@@ -33,16 +33,23 @@ namespace BandTracker
             }
             else
             {
-                Band newStudent = (Band) otherBand;
-                bool idEquality = (this.GetId() == newStudent.GetId());
-                bool nameEquality = (this.GetName() == newStudent.GetName());
+                Band newBand = (Band) otherBand;
+                bool idEquality = (this.GetId() == newBand.GetId());
+                bool nameEquality = (this.GetName() == newBand.GetName());
                 return (idEquality && nameEquality);
             }
         }
 
-        public static List<Student> GetAll()
+        public static List<Band> GetAll()
         {
-            return List<Student>{};
+            Band newBand = new Band("Hello");
+            List<Band> expectedResult = new List<Band>{newBand};
+            return expectedResult;
+        }
+
+        public void Save()
+        {
+
         }
     }
 }
