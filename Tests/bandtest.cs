@@ -42,6 +42,18 @@ namespace BandTracker
             Assert.Equal(expectedResult, actual);
         }
 
+        [Fact]
+        public void Find_ReturnsBandBasedOnId_Band()
+        {
+            Band newBand = new Band ("Journey");
+            newBand.Save();
+
+            Band expectedResult = newBand;
+            Band actualResult = Band.Find(newBand.GetId());
+
+            Assert.Equal(expectedResult, actualResult);
+        }
+
         public void Dispose()
         {
             Band.DeleteAll();
