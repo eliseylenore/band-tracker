@@ -175,14 +175,67 @@ namespace BandTracker
 
         public void AddBand(Band newBand)
         {
+            SqlConnection conn = DB.Connection();
+            conn.Open();
 
+            SqlCommand cmd = new SqlCommand("INSERT INTO bands_venues(band_id, venue_id) VALUES(@BandId, @VenueId);", conn);
+
+            SqlParameter bandIdParameter = new SqlParameter();
+            bandIdParameter.ParameterName = "@BandId";
+            bandIdParameter.Value = newBand.GetId();
+            cmd.Parameters.Add(bandIdParameter);
+
+            SqlParameter venueIdParameter = new SqlParameter();
+            venueIdParameter.ParameterName = "@VenueId";
+            venueIdParameter.Value = this._id;
+            cmd.Parameters.Add(venueIdParameter);
+
+            cmd.ExecuteNonQuery();
+
+            if(conn != null)
+            {
+                conn.Close();
+            }
         }
 
         public List<Band> GetBands()
         {
-            Band newBand = new Band ("Journey");
-            Venue venue = new Venue ("The Showbox");
-            List<Band> AllBands = new List<Band>{newBand};
+            List<Band> AllBands = new List<Band>{};
+
+            SqlConnection conn = DB.Connection();
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT bands.* FROM venues JOIN bands_venues ON (venues.id = bands_venues.venue_id) JOIN  bands ON (bands.id = bands_venues.band_id) WHERE venue_id = @VenueId;", conn);
+
+            SqlParameter venueIdParameter = new SqlParameter();
+            venueIdParameter.ParameterName = "VenueId";
+            venueIdParameter.Value = this._id;
+            cmd.Parameters.Add(venueIdParameter);
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            int foundBandId = 0;
+            string foundBandName = null;
+
+            while(rdr.Read())
+            {
+                foundBandId = rdr.GetInt32(0);
+                foundBandName = rdr.GetString(1);
+
+                Band foundBand = new Band(foundBandName, foundBandId);
+                AllBands.Add(foundBand);
+            }
+
+            if(rdr != null)
+            {
+                rdr.Close();
+            }
+
+            if(conn != null)
+            {
+                conn.Close();
+            }
+
             return AllBands;
         }
 
