@@ -28,6 +28,13 @@ namespace BandTracker
                 model.Add("bands", VenueBands);
                 return View["venue.cshtml", model];
             };
+
+            Delete["/venue/delete/{id}"] = parameters => {
+                Venue SelectedVenue = Venue.Find(parameters.id);
+                SelectedVenue.Delete();
+                List<Venue> AllVenues = Venue.GetAll();
+                return View["index.cshtml", AllVenues];
+            };
         }
     }
 }
