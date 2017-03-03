@@ -111,7 +111,7 @@ namespace BandTracker
             bandIdParameter.ParameterName = "@BandId";
             bandIdParameter.Value = id.ToString();
             cmd.Parameters.Add(bandIdParameter);
-            
+
             SqlDataReader rdr = cmd.ExecuteReader();
 
             int foundBandId = 0;
@@ -135,6 +135,18 @@ namespace BandTracker
             }
 
             return foundBand;
+        }
+
+        public List<Venue> GetVenues()
+        {
+            Venue venue = new Venue ("Hey");
+            venue.Save();
+
+            Band newBand = new Band ("What");
+            newBand.Save();
+
+            List<Venue> blah = new List<Venue>{venue};
+            return blah;
         }
 
         public static void DeleteAll()
