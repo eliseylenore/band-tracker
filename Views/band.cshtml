@@ -1,0 +1,26 @@
+@{
+    Layout="Shared/_layout.cshtml";
+}
+
+
+<h2>@Model["band"].GetName()</h2>
+<form action="/band/edit/@Model["band"].GetId()" method="post">
+    <input type="hidden" name="_method"  value="UPDATE">
+    <button type="submit" class="tiny material-icons" alt="edit"><a href="/band/edit/@Model["band"].GetId()">mode_edit</a></button>
+</form>
+
+
+@if (@Model["venues"] != null)
+{
+    @if (@Model.Count > 0)
+    {
+        foreach(var venue in @Model["venues"])
+        {
+            <h4><a href="/venue/@venue.GetId()">@venue.GetName()</a></h4>
+        }
+    }
+    else
+    {
+        <h4>No venues have have hosted this band yet..</h4>
+    }
+}

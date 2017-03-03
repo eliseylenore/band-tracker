@@ -41,6 +41,15 @@ namespace BandTracker
                 return View["venue.cshtml", model];
             };
 
+            Get["/band/{id}"] = parameters => {
+                Dictionary<string, object> model = new Dictionary<string, object>{};
+                var SelectedBand = Band.Find(parameters.id);
+                List<Venue> BandVenues = SelectedBand.GetVenues();
+                model.Add("band", SelectedBand);
+                model.Add("venues", BandVenues);
+                return View["band.cshtml", model];
+            };
+
             Delete["/venue/delete/{id}"] = parameters => {
                 Venue SelectedVenue = Venue.Find(parameters.id);
                 SelectedVenue.Delete();
@@ -51,10 +60,19 @@ namespace BandTracker
             Get["/venue/edit/{id}"] = parameters => {
                 Dictionary<string, object> model = new Dictionary<string, object>{};
                 var SelectedVenue = Venue.Find(parameters.id);
-                List<Band> VenueBands = SelectedVenue.GetBands();
+                List<Band> AllBands = Band.GetAll();
                 model.Add("venue", SelectedVenue);
-                model.Add("bands", VenueBands);
+                model.Add("bands", AllBands);
                 return View["venue_edit.cshtml", model];
+            };
+
+            Get["/band/edit/{id}"] = parameters => {
+                Dictionary<string, object> model = new Dictionary<string, object>{};
+                var SelectedBand = Band.Find(parameters.id);
+                List<Venue> AllVenues = Venue.GetAll();
+                model.Add("band", SelectedBand);
+                model.Add("venues", AllVenues);
+                return View["band_edit.cshtml", model];
             };
 
             Patch["/venue/edit/{id}"] = parameters => {

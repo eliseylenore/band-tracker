@@ -14,21 +14,28 @@
     <button type="submit" class="btn">Update</button>
 </form>
 
-@if (@Model["bands"].Count > 0)
+@if (@Model["venues"] != null)
 {
-    <form action="/band/add_band" method="post">
-        <input id="band-id" name="band-id" type="hidden" value='@Model["band"].GetId()'>
-        <label for="band-id">Select a band</label>
-        <select id="band-id" name="band-id" type="text">
-            @foreach (var band in @Model["bands"])
-            {
-                <option value="@band.GetId()">@band.GetName()</option>
-            }
-        </select>
-        <button type="submit">Add</button>
-    </form>
-}
-else
-{
-    <h5>There are currently no bands to add. If you would like to add a band to @Model["band"].GetName(), please <a href="/bands">click here</a></h5>
+    if (@Model["venues".Count > 0])
+    {
+        <form action="/band/add_venue" method="post">
+            <input id="band-id" name="band-id" type="hidden" value='@Model["band"].GetId()'>
+            <div class="input-field">
+                <select id="venue-id" name="venue-id" type="text">
+                    @foreach (var venue in @Model["venues"])
+                    {
+                        <option value="@venue.GetId()">@venue.GetName()</option>
+                    }
+                </select>
+                <label for="venue-id">Select a venue</label>
+            </div>
+            <button type="submit">Add</button>
+        </form>
+    }
+    else
+    {
+        <h5>No venues have been created yet. If you would like to add a venue to @Model["band"].GetName(), please <a href="\">create a new venue first</a>.</h5>
+    }
+
+
 }
