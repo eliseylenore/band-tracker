@@ -42,6 +42,18 @@ namespace BandTracker
             Assert.Equal(expectedResult, actual);
         }
 
+        [Fact]
+        public void Find_ReturnsVenueBasedOnId_Venue()
+        {
+            Venue newVenue = new Venue ("The Showbox");
+            newVenue.Save();
+
+            Venue expectedResult = newVenue;
+            Venue actualResult = Venue.Find(newVenue.GetId());
+
+            Assert.Equal(expectedResult, actualResult);
+        }
+
         public void Dispose()
         {
             Band.DeleteAll();
