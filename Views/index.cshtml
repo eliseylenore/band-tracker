@@ -1,0 +1,25 @@
+@{
+    Layout="Shared/_layout.cshtml";
+}
+
+<h2>Venues</h2>
+
+<h5>Add A Venue</h5>
+<form action="/patron/new" method="post">
+    <label for="name"> Venue name:</label>
+    <input id="name" name = "name" type = "text">
+    <button type="submit" name="button" class="btn">Add!</button>
+</form>
+
+
+@if(@Model != null)
+{
+    foreach(var venue in @Model)
+    {
+        <h4><a href="/venue/@venue.GetId()">@venue.GetName()</a></h4>
+    }
+}
+else
+{
+    <h4>There are no current venues.</h4>
+}
