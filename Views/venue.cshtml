@@ -2,15 +2,23 @@
     Layout="Shared/_layout.cshtml";
 }
 
-<h2>@Model["venue"].GetName()</h2>
-<form action="/venue/delete/@Model["venue"].GetId()" method="post">
-    <input type="hidden" name="_method"  value="DELETE">
-    <button type="submit" class="tiny material-icons">delete</button>
-</form>
-<form action="venue/delete/@Model["venue"].GetId()" method="post">
-    <input type="hidden" name="_method"  value="UPDATE">
-    <button type="submit" class="tiny material-icons">mode_edit</button>
-</form>
+<div class="row valign-wrapper">
+    <div class="col s6">
+        <h2>@Model["venue"].GetName()</h2>
+    </div>
+    <div class="col s6">
+        <div class="right">
+            <form action="/venue/delete/@Model["venue"].GetId()" method="post">
+                <input type="hidden" name="_method"  value="DELETE">
+                <button type="submit" class="tiny material-icons">delete</button>
+            </form>
+            <form action="venue/delete/@Model["venue"].GetId()" method="post">
+                <input type="hidden" name="_method"  value="UPDATE">
+                <button type="submit" class="tiny material-icons" alt="edit">mode_edit</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 @if(@Model["bands"].Count < 0)
 {
