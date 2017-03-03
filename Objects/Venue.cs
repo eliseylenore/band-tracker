@@ -173,6 +173,20 @@ namespace BandTracker
             }
         }
 
+        public void AddBand(Band newBand)
+        {
+
+        }
+
+        public List<Band> GetBands()
+        {
+            Band newBand = new Band ("Journey");
+            Venue venue = new Venue ("The Showbox");
+            List<Band> AllBands = new List<Band>{newBand};
+            return AllBands;
+        }
+
+
         public void Delete()
         {
             SqlConnection conn = DB.Connection();
