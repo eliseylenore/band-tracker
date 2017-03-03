@@ -12,22 +12,22 @@
                 <input type="hidden" name="_method"  value="DELETE">
                 <button type="submit" class="tiny material-icons">delete</button>
             </form>
-            <form action="/venue/edit/@Model["venue"].GetId()" method="post">
-                <input type="hidden" name="_method"  value="UPDATE">
-                <button type="submit" class="tiny material-icons" alt="edit"><a href="/venue/edit/@Model["venue"].GetId()">mode_edit</a></button>
-            </form>
+            <button type="submit" class="tiny material-icons" alt="edit"><a href="/venue/edit/@Model["venue"].GetId()">mode_edit</a></button>
         </div>
     </div>
 </div>
 
-@if(@Model["bands"].Count < 0)
+@if (@Model != null)
 {
-    foreach(var band in @Model["bands"])
+    @if(@Model["bands"].Count > 0)
     {
-        <h4><a href="/band/@band.GetId()">@band.GetName()</a></h4>
+        foreach(var band in @Model["bands"])
+        {
+            <h4><a href="/band/@band.GetId()">@band.GetName()</a></h4>
+        }
     }
-}
-else
-{
-    <h4>No bands have yet played at this venue.</h4>
+    else
+    {
+        <h4>No bands have yet played at this venue.</h4>
+    }
 }
