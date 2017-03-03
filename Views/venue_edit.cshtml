@@ -1,0 +1,15 @@
+@{
+    Layout="Shared/_layout.cshtml";
+}
+
+<div class="col s6">
+    <h2>@Model.GetName()</h2>
+</div>
+
+<form action="/venue/edit/@Model.GetId()" method="post">
+    <input type="hidden" name="_method"  value="PATCH">
+    <input name="venue-id" type="hidden" value="@Model.GetId()">
+    <label for="venue-name">Venue Name</label>
+    <input id="venue-name" name="venue-name" type="text" placeholder="Please enter venue's new name.">
+    <button type="submit" class="btn">Update</button>
+</form>

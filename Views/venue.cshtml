@@ -12,9 +12,9 @@
                 <input type="hidden" name="_method"  value="DELETE">
                 <button type="submit" class="tiny material-icons">delete</button>
             </form>
-            <form action="venue/delete/@Model["venue"].GetId()" method="post">
+            <form action="/venue/edit/@Model["venue"].GetId()" method="post">
                 <input type="hidden" name="_method"  value="UPDATE">
-                <button type="submit" class="tiny material-icons" alt="edit">mode_edit</button>
+                <button type="submit" class="tiny material-icons" alt="edit"><a href="/venue/edit/@Model["venue"].GetId()">mode_edit</a></button>
             </form>
         </div>
     </div>
