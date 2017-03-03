@@ -25,6 +25,13 @@ namespace BandTracker
                 return View["index.cshtml", AllVenues];
             };
 
+            Post["/band/new"] = _ => {
+                Band newBand = new Band(Request.Form["name"]);
+                newBand.Save();
+                List<Band> AllBands = Band.GetAll();
+                return View["bands.cshtml", AllBands];
+            };
+
             Get["/venue/{id}"] = parameters => {
                 Dictionary<string, object> model = new Dictionary<string, object>{};
                 var SelectedVenue = Venue.Find(parameters.id);

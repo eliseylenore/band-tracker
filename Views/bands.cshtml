@@ -13,14 +13,17 @@
 </form>
 
 
-@if(@Model.Count < 0)
+@if(@Model.Count != null)
 {
-    foreach(var band in @Model)
+    if (@Model.Count > 0)
     {
-        <h4><a href="/band/@band.GetId()">@band.GetName()</a></h4>
+        foreach(var band in @Model)
+        {
+            <h4><a href="/band/@band.GetId()">@band.GetName()</a></h4>
+        }
     }
-}
-else
-{
-    <h4>There are no current bands.</h4>
+    else
+    {
+        <h4>There are no current bands.</h4>
+    }
 }
