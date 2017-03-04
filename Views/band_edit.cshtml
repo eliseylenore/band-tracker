@@ -16,7 +16,7 @@
 
 @if (@Model["venues"] != null)
 {
-    if (@Model["venues".Count > 0])
+    @if (@Model["venues"].Count > 0)
     {
         <form action="/band/add_venue" method="post">
             <input id="band-id" name="band-id" type="hidden" value='@Model["band"].GetId()'>
@@ -29,13 +29,11 @@
                 </select>
                 <label for="venue-id">Select a venue</label>
             </div>
-            <button type="submit">Add</button>
+            <button type="submit" class="btn">Add</button>
         </form>
     }
     else
     {
-        <h5>No venues have been created yet. If you would like to add a venue to @Model["band"].GetName(), please <a href="\">create a new venue first</a>.</h5>
+        <h5>No venues have been created yet. If you would like to add a venue to @Model["band"].GetName(), please <a href="/">create a new venue first.</a></h5>
     }
-
-
 }

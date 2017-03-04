@@ -92,6 +92,17 @@ namespace BandTracker
                 model.Add("bands", VenueBands);
                 return View["venue.cshtml", model];
             };
+
+            Post["/band/add_venue"] = _ => {
+                Dictionary<string, object> model = new Dictionary<string, object>{};
+                var SelectedVenue = Venue.Find(Request.Form["venue-id"]);
+                var SelectedBand = Band.Find(Request.Form["band-id"]);
+                SelectedBand.AddVenue(SelectedVenue);
+                List<Venue> BandVenues = SelectedBand.GetVenues();
+                model.Add("band", SelectedBand);
+                model.Add("venues", BandVenues);
+                return View["band.cshtml", model];
+            };
         }
     }
 }
